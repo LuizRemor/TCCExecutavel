@@ -1133,7 +1133,7 @@ public class PrimaryController {
 
 			if (momentoDeServico < momentoDeFissuracao) {
 
-				services.imprimeResultados("OK, Segue o baile!" + "\n", this.imprimeResultados, resultados);
+				
 
 			} else {
 
