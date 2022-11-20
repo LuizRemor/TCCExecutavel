@@ -69,7 +69,7 @@ public class EspacamentoAco {
 
 	@Override
 	public String toString() {
-		return eixo + " " + quantidade + " barras de Φ " + bitola + "mm com "+ espacamento + "cm";
+		return quantidade + " barras de Φ " + bitola + "mm com "+ espacamento + "cm";
 	}
 
 }
