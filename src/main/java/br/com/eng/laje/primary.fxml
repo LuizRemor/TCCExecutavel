@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="744.0" prefWidth="1323.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.eng.laje.PrimaryController">
+<AnchorPane prefHeight="744.0" prefWidth="1323.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.com.eng.laje.PrimaryController">
 	<children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="306.0" layoutX="396.0" layoutY="341.0" stroke="BLACK" strokeType="INSIDE" width="332.0" />
 		<Label layoutX="855.0" layoutY="26.0" text="Lado X (m)" />
@@ -155,6 +155,12 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label fx:id="avisoEspessuraLaje" layoutX="409.0" layoutY="235.0" prefHeight="52.0" prefWidth="426.0" text="AUMENTAR A ESPESSURA DA LAJE" textFill="RED" visible="false">
+         <font>
+            <Font size="27.0" />
+         </font>
+      </Label>
+      <Rectangle fx:id="retanguloParedeLaje" arcHeight="5.0" arcWidth="5.0" fill="#ff000087" height="153.0" layoutX="288.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="35.0" />
 	</children>
 
 </AnchorPane>

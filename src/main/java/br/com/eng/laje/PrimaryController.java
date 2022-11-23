@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -195,6 +197,12 @@ public class PrimaryController {
 	private Rectangle retanguloComParede = new Rectangle();
 	
 	@FXML
+	private Rectangle retanguloParedeLaje = new Rectangle();
+	
+	@FXML
+	private Label avisoEspessuraLaje = new Label();
+	
+	@FXML
 	private Label labelEscolhaBitolaEspacamento = new Label();
 	
 	@FXML
@@ -316,6 +324,7 @@ public class PrimaryController {
 		this.acoYPositivoComParede.getItems().clear();
 		this.acoYNegativoComParede.getItems().clear();
 		
+		this.avisoEspessuraLaje.setVisible(false);
 		this.checkYCima.setSelected(false);
 		this.engasteCheckYCima.setVisible(false);
 		this.checkXDireita.setSelected(false);
@@ -347,6 +356,7 @@ public class PrimaryController {
 		this.textAlturaDaParede.setVisible(true);
 		
 		this.retanguloComParede.setVisible(false);
+		this.retanguloParedeLaje.setVisible(false);
 		this.acoPositivoEmXComParede.setVisible(false);
 		this.acoNegativoEmXComParede.setVisible(false);
 		this.acoPositivoEmYComParede.setVisible(false);
@@ -480,6 +490,7 @@ public class PrimaryController {
 			this.textEspessuraDaParede.setVisible(false);
 			this.textAlturaDaParede.setVisible(false);
 			this.retanguloComParede.setVisible(false);
+			this.retanguloParedeLaje.setVisible(false);
 			this.acoPositivoEmXComParede.setVisible(false);
 			this.acoNegativoEmXComParede.setVisible(false);
 			this.acoPositivoEmYComParede.setVisible(false);
@@ -515,6 +526,7 @@ public class PrimaryController {
 			this.acoYPositivoComParede.setVisible(true);
 			this.acoYNegativoComParede.setVisible(true);
 			this.armadurasForaDaZonaDeInflucencia.setVisible(true);
+			this.retanguloParedeLaje.setVisible(true);
 			this.armadurasNaZonaDeInflucencia.setVisible(true);
 			this.labelEscolhaBitolaEspacamentoComParede.setVisible(true);
 			this.labelEscolhaBitolaEspacamentoComParede.setText("Escolha a bitola e os espaçamentos");
@@ -531,6 +543,10 @@ public class PrimaryController {
 	}
 
 	public void btCalcular() {
+		
+		this.avisoEspessuraLaje.setVisible(false);
+		
+		this.imprimeResultados.clear();
 		
 		resultados = new ArrayList<>();
 		
@@ -621,26 +637,32 @@ public class PrimaryController {
 		calculaMomentoDeFissuracao();
 		defineECalculaEquacaoMomentoDeServicoSemParede();
 		verificaMomentoDeFissuracao();
-		inercia();
-		defineCoeficienteKParaUmaDirecao();
-		calculaFlechaDeCurtaDuracao();
-		calculaFlechaDeLongaDuracao();
-		calculaFlechaAdmissivel();
-		comparaFlecha();
-		defineCoeficientes();
-		calculaMomentoDeProjetoSemParede();
-		calculaXSemParede();
-		calculaAcoSemParede();
-		calculaArmaduraDeDistribuicao();
-		defineAreaDeAcoSemParede();
-		calculaReacoes();
-		decideReacoes();
-		montaOpcoesDeEspacamentoX();
-		montaOpcoesDeEspacamentoXNegativo();
-		montaOpcoesDeEspacamentoY();
-		montaOpcoesDeEspacamentoYNegativo();
-		validaCamposVisiveis();
-
+		
+		if(this.avisoEspessuraLaje.isVisible() == true){
+			
+		}
+		else {
+			
+			inercia();
+			defineCoeficienteKParaUmaDirecao();
+			calculaFlechaDeCurtaDuracao();
+			calculaFlechaDeLongaDuracao();
+			calculaFlechaAdmissivel();
+			comparaFlecha();
+			defineCoeficientes();
+			calculaMomentoDeProjetoSemParede();
+			calculaXSemParede();
+			calculaAcoSemParede();
+			calculaArmaduraDeDistribuicao();
+			defineAreaDeAcoSemParede();
+			calculaReacoes();
+			decideReacoes();
+			montaOpcoesDeEspacamentoX();
+			montaOpcoesDeEspacamentoXNegativo();
+			montaOpcoesDeEspacamentoY();
+			montaOpcoesDeEspacamentoYNegativo();
+			validaCamposVisiveis();
+		}
 	}
 
 	public void calculosLajeComParedeUmaDirecao() {
@@ -676,32 +698,39 @@ public class PrimaryController {
 		calculaMomentoDeFissuracao();
 		defineECalculaEquacaoMomentoDeServicoUmaDirecaoComParede();
 		verificaMomentoDeFissuracao();
-		inercia();
-		defineCoeficienteKParaUmaDirecao();
-		calculaFlechaDeCurtaDuracao();
-		calculaFlechaDeLongaDuracao();
-		calculaFlechaAdmissivel();
-		comparaFlecha();
-		areaDeInfluenciaDaParedeNegativa();
-		cargaPermanenteNegativaComParede();
-		cargaTotalNegativa();
-		defineCoeficientes();
-		calculaMomentoDeProjetoComParede();
-		calculaXComParede();
-		calculaAcoComParede();
-		calculaArmaduraDeDistribuicao();
-		defineAreaDeAcoComParede();
-		calculaReacoes();
-		decideReacoes();
-		montaOpcoesDeEspacamentoX();
-		montaOpcoesDeEspacamentoXNegativo();
-		montaOpcoesDeEspacamentoY();
-		montaOpcoesDeEspacamentoYNegativo();
 		
-		this.paredeSim.setSelected(false);
-		calculosLajeSemParedeUmaDirecao();
-		validaCamposVisiveis();
+		if(avisoEspessuraLaje.isVisible() == true){
+			
+		}
+		else {
 		
+			inercia();
+			defineCoeficienteKParaUmaDirecao();
+			calculaFlechaDeCurtaDuracao();
+			calculaFlechaDeLongaDuracao();
+			calculaFlechaAdmissivel();
+			comparaFlecha();
+			areaDeInfluenciaDaParedeNegativa();
+			cargaPermanenteNegativaComParede();
+			cargaTotalNegativa();
+			defineCoeficientes();
+			calculaMomentoDeProjetoComParede();
+			calculaXComParede();
+			calculaAcoComParede();
+			calculaArmaduraDeDistribuicao();
+			defineAreaDeAcoComParede();
+			calculaReacoes();
+			decideReacoes();
+			montaOpcoesDeEspacamentoX();
+			montaOpcoesDeEspacamentoXNegativo();
+			montaOpcoesDeEspacamentoY();
+			montaOpcoesDeEspacamentoYNegativo();
+			
+			this.paredeSim.setSelected(false);
+			calculosLajeSemParedeUmaDirecao();
+			validaCamposVisiveis();
+			this.paredeSim.setSelected(true);
+		}
 	}
 	
 	public void calculosLajeSemParedeDuasDirecoes() {
@@ -736,25 +765,31 @@ public class PrimaryController {
 		calculaMomentoDeFissuracao();
 		calculaMomentoDeServicoDuasDirecoes();
 		verificaMomentoDeFissuracao();
-		inercia();
-		defineCoeficienteKParaDuasDirecoes();
-		calculaFlechaDeCurtaDuracao();
-		calculaFlechaDeLongaDuracao();
-		calculaFlechaAdmissivel();
-		comparaFlecha();
-		defineCoeficientes();
-		calculaMomentoDeProjetoSemParede();
-		calculaXSemParede();
-		calculaAcoSemParede();
-		defineAreaDeAcoSemParede();
-		calculaReacoes();
-		decideReacoes();
-		montaOpcoesDeEspacamentoX();
-		montaOpcoesDeEspacamentoXNegativo();
-		montaOpcoesDeEspacamentoY();
-		montaOpcoesDeEspacamentoYNegativo();
-		validaCamposVisiveis();
-
+		
+		if(avisoEspessuraLaje.isVisible() == true){
+			
+		}
+		else {
+		
+			inercia();
+			defineCoeficienteKParaDuasDirecoes();
+			calculaFlechaDeCurtaDuracao();
+			calculaFlechaDeLongaDuracao();
+			calculaFlechaAdmissivel();
+			comparaFlecha();
+			defineCoeficientes();
+			calculaMomentoDeProjetoSemParede();
+			calculaXSemParede();
+			calculaAcoSemParede();
+			defineAreaDeAcoSemParede();
+			calculaReacoes();
+			decideReacoes();
+			montaOpcoesDeEspacamentoX();
+			montaOpcoesDeEspacamentoXNegativo();
+			montaOpcoesDeEspacamentoY();
+			montaOpcoesDeEspacamentoYNegativo();
+			validaCamposVisiveis();
+		}
 
 	}
 	
@@ -792,31 +827,38 @@ public class PrimaryController {
 		calculaMomentoDeFissuracao();
 		calculaMomentoDeServicoDuasDirecoes();
 		verificaMomentoDeFissuracao();
-		inercia();
-		defineCoeficienteKParaDuasDirecoes();
-		calculaFlechaDeCurtaDuracao();
-		calculaFlechaDeLongaDuracao();
-		calculaFlechaAdmissivel();
-		comparaFlecha();
-		areaDeInfluenciaDaParedeNegativa();
-		cargaPermanenteNegativaComParede();
-		cargaTotalNegativa();
-		defineCoeficientes();
-		calculaMomentoDeProjetoComParede();
-		calculaXComParede();
-		calculaAcoComParede();
-		defineAreaDeAcoComParede();
-		calculaReacoes();
-		decideReacoes();
-		montaOpcoesDeEspacamentoX();
-		montaOpcoesDeEspacamentoXNegativo();
-		montaOpcoesDeEspacamentoY();
-		montaOpcoesDeEspacamentoYNegativo();
 		
-		this.paredeSim.setSelected(false);
-		calculosLajeSemParedeDuasDirecoes();
-		validaCamposVisiveis();
-
+		if(avisoEspessuraLaje.isVisible() == true){
+			
+		}
+		else {
+		
+			inercia();
+			defineCoeficienteKParaDuasDirecoes();
+			calculaFlechaDeCurtaDuracao();
+			calculaFlechaDeLongaDuracao();
+			calculaFlechaAdmissivel();
+			comparaFlecha();
+			areaDeInfluenciaDaParedeNegativa();
+			cargaPermanenteNegativaComParede();
+			cargaTotalNegativa();
+			defineCoeficientes();
+			calculaMomentoDeProjetoComParede();
+			calculaXComParede();
+			calculaAcoComParede();
+			defineAreaDeAcoComParede();
+			calculaReacoes();
+			decideReacoes();
+			montaOpcoesDeEspacamentoX();
+			montaOpcoesDeEspacamentoXNegativo();
+			montaOpcoesDeEspacamentoY();
+			montaOpcoesDeEspacamentoYNegativo();
+			
+			this.paredeSim.setSelected(false);
+			calculosLajeSemParedeDuasDirecoes();
+			validaCamposVisiveis();
+			this.paredeSim.setSelected(true);
+		}
 	}
 
 	public void decideGamaTijolo() {
@@ -1137,6 +1179,8 @@ public class PrimaryController {
 
 			} else {
 
+				this.avisoEspessuraLaje.setVisible(true);
+				
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
@@ -1146,7 +1190,7 @@ public class PrimaryController {
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
-
+				
 			}
 		} else {
 
@@ -1160,6 +1204,8 @@ public class PrimaryController {
 
 			} else {
 
+				this.avisoEspessuraLaje.setVisible(true);
+				
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
 				services.imprimeResultados("-------------------------------------------------" + "\n",this.imprimeResultados, resultados);
@@ -2077,47 +2123,74 @@ public class PrimaryController {
 
 	}
 	
+	@SuppressWarnings("removal")
 	public void calculaXSemParede() {
 
 		lajeSemParede.calculaD();
 		materiais.calculaFcd();
 
-		Double numerador;
-		Double denominador;
-		Double raiz;
-		Double x;
+		Double numerador = new Double(0.0);
+		Double denominador = new Double(0.0);
+		Double raiz = new Double(0.0);
+		Double x = new Double(0.0);
 
 		numerador = 2 * lajeSemParede.getMomentoDeProjetoX().doubleValue();
 		denominador = 0.85 * materiais.getFcd().doubleValue() * 100 * lajeSemParede.getD().pow(2).doubleValue();
 
 		raiz = Math.sqrt(1 - (numerador / denominador));
 
-		x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
-
+		if(raiz == 1.0) {
+			x = 0.0;
+		}
+		else {
+			x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
+		}
+		
 		lajeSemParede.setX(services.doubleEmBigDecimal(x));
-
+		
+		numerador = new Double(0.0);
 		numerador = 2 * lajeSemParede.getMomentoDeProjetoXLinha().doubleValue();
 
+		raiz = new Double(0.0);
 		raiz = Math.sqrt(1 - (numerador / denominador));
 
-		x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
-
+		if(raiz == 1.0) {
+			x = 0.0;
+		}
+		else {
+			x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
+		}
+		
 		lajeSemParede.setxLinha(services.doubleEmBigDecimal(x));
 
+		numerador = new Double(0.0);
 		numerador = 2 * lajeSemParede.getMomentoDeProjetoY().doubleValue();
 
+		raiz = new Double(0.0);
 		raiz = Math.sqrt(1 - (numerador / denominador));
-
-		x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
-
+		
+		if(raiz == 1.0) {
+			x = 0.0;
+		}
+		else {
+			x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
+		}
+		
 		lajeSemParede.setY(services.doubleEmBigDecimal(x));
 
+		numerador = new Double(0.0);
 		numerador = 2 * lajeSemParede.getMomentoDeProjetoYLinha().doubleValue();
 
+		raiz = new Double(0.0);
 		raiz = Math.sqrt(1 - (numerador / denominador));
-
-		x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
-
+		
+		if(raiz == 1.0) {
+			x = 0.0;
+		}
+		else {
+			x = lajeSemParede.getD().doubleValue() / 0.8 * (1 - raiz);
+		}
+		
 		lajeSemParede.setyLinha(services.doubleEmBigDecimal(x));
 
 		services.imprimeResultados("X = " + lajeSemParede.getX().setScale(2, BigDecimal.ROUND_HALF_EVEN) + "\n",

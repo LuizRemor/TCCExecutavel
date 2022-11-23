@@ -1,6 +1,8 @@
 package br.com.eng.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import br.com.eng.entities.Resultado;
