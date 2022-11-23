@@ -25,6 +25,7 @@ import br.com.eng.util.Services;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -60,6 +61,9 @@ public class PrimaryController {
 	List<EspacamentoAco> espacamentoAcoList = new ArrayList<>();
 
 	private Services services = new Services();
+	
+	@FXML
+	private Button btCalcular = new Button();
 
 	@FXML
 	private Label tijoloFurado = new Label();
@@ -560,6 +564,12 @@ public class PrimaryController {
 		
 		lajeComParede.setCargaAcidental(services.conversor(this.cargaAcidental));
 		
+		if(lajeComParede.getEspessura().doubleValue() <= 5.0) {
+			
+			this.avisoEspessuraLaje.setVisible(true);
+			
+		}
+		
 		if(paredeSim.selectedProperty().getValue() == true) {
 			
 			parede = new Parede(this.alturaParede, this.espessuraParede);
@@ -603,6 +613,21 @@ public class PrimaryController {
 			}
 		}
 
+	}
+	
+	public void verificaEspessuraMinimaDaLaje() {
+		
+		BigDecimal espessura = services.conversor(this.espessuraLaje);
+		
+		if(espessura.doubleValue() <= 5.0) {
+			this.btCalcular.setVisible(false);
+			this.avisoEspessuraLaje.setVisible(true);
+		}
+		else {
+			this.btCalcular.setVisible(true);
+			this.avisoEspessuraLaje.setVisible(false);
+		}
+		
 	}
 
 	public void calculosLajeSemParedeUmaDirecao() {
@@ -2839,7 +2864,6 @@ public class PrimaryController {
 	}
 
 	public void montaOpcoesDeEspacamentoY() {
-		
 
 
 		if (paredeSim.selectedProperty().getValue() == true) {
