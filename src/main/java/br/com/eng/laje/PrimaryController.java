@@ -330,7 +330,7 @@ public class PrimaryController {
 		
 	}
 	
-	public void trocaVirgulaPorPonto() {
+	public void trocaVirgulaPorPontoLadoX() {
 
 		String text = this.ladoX.getText();
 
@@ -344,7 +344,11 @@ public class PrimaryController {
 			this.btCalcular.setVisible(true);
 		}
 
-		text = this.ladoY.getText();
+	}
+	
+	public void trocaVirgulaPorPontoLadoY() {
+		
+		String text = this.ladoY.getText();
 
 		if (text.contains(",")) {
 
@@ -355,8 +359,12 @@ public class PrimaryController {
 			this.avisoLadoY.setVisible(false);
 			this.btCalcular.setVisible(true);
 		}
-
-		text = this.espessuraLaje.getText();
+		
+	}
+	
+	public void trocaVirgulaPorPontoEspessuraLaje() {
+		
+		String text = this.espessuraLaje.getText();
 
 		if (text.contains(",")) {
 
@@ -367,8 +375,12 @@ public class PrimaryController {
 			this.avisoVirgulaEspessuraLaje.setVisible(false);
 			this.btCalcular.setVisible(true);
 		}
-
-		text = this.cargaAcidental.getText();
+		
+	}
+	
+	public void trocaVirgulaPorPontoCargaAcidental() {
+		
+		String text = this.cargaAcidental.getText();
 
 		if (text.contains(",")) {
 
@@ -379,8 +391,12 @@ public class PrimaryController {
 			this.avisoCargaAcidental.setVisible(false);
 			this.btCalcular.setVisible(true);
 		}
-
-		text = this.espessuraParede.getText();
+		
+	}
+	
+	public void trocaVirgulaPorPontoEspessuraParede() {
+		
+		String text = this.espessuraParede.getText();
 
 		if (text.contains(",")) {
 
@@ -391,8 +407,12 @@ public class PrimaryController {
 			this.avisoEspessuraParede.setVisible(false);
 			this.btCalcular.setVisible(true);
 		}
-
-		text = this.alturaParede.getText();
+		
+	}
+	
+	public void trocaVirgulaPorPontoAlturaParede() {
+		
+		String text = this.alturaParede.getText();
 
 		if (text.contains(",")) {
 
@@ -403,7 +423,7 @@ public class PrimaryController {
 			this.avisoAlturaParede.setVisible(false);
 			this.btCalcular.setVisible(true);
 		}
-
+		
 	}
 
 	public void btNovaLaje() {
@@ -649,8 +669,6 @@ public class PrimaryController {
 		this.imprimeResultados.clear();
 		
 		resultados = new ArrayList<>();
-		
-		trocaVirgulaPorPonto();
 		
 		lajeComParede = new LajeComParede(this.ladoX, this.ladoY, this.espessuraLaje);
 		

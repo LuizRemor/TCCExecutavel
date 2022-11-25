@@ -23,17 +23,17 @@
 		<Label layoutX="830.0" layoutY="105.0" text="Carga Acidental" />
 		<Label fx:id="textEspessuraDaParede" layoutX="785.0" layoutY="181.0" text="Espessura da Parede (cm)" />
 		<Label fx:id="textAlturaDaParede" layoutX="810.0" layoutY="209.0" text="Altura da parede (m)" />
-		<TextField id="inputLadoX" fx:id="ladoX" layoutX="937.0" layoutY="20.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputLadoX" fx:id="ladoX" layoutX="937.0" layoutY="20.0" onKeyTyped="#trocaVirgulaPorPontoLadoX" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputLadoY" fx:id="ladoY" layoutX="937.0" layoutY="49.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputLadoY" fx:id="ladoY" layoutX="937.0" layoutY="49.0" onKeyTyped="#trocaVirgulaPorPontoLadoY" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputEspessuraLaje" fx:id="espessuraLaje" layoutX="937.0" layoutY="76.0" onAction="#verificaEspessuraMinimaDaLaje" onKeyPressed="#verificaEspessuraMinimaDaLaje" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputEspessuraLaje" fx:id="espessuraLaje" layoutX="937.0" layoutY="76.0" onAction="#verificaEspessuraMinimaDaLaje" onKeyPressed="#verificaEspessuraMinimaDaLaje" onKeyTyped="#trocaVirgulaPorPontoEspessuraLaje" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
