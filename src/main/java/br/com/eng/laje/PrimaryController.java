@@ -204,7 +204,25 @@ public class PrimaryController {
 	private Rectangle retanguloParedeLaje = new Rectangle();
 	
 	@FXML
+	private Label avisoLadoX = new Label();
+	
+	@FXML
+	private Label avisoLadoY = new Label();
+	
+	@FXML
+	private Label avisoVirgulaEspessuraLaje = new Label();
+	
+	@FXML
 	private Label avisoEspessuraLaje = new Label();
+	
+	@FXML
+	private Label avisoCargaAcidental = new Label();
+	
+	@FXML
+	private Label avisoEspessuraParede = new Label();
+	
+	@FXML
+	private Label avisoAlturaParede = new Label();
 	
 	@FXML
 	private Label labelEscolhaBitolaEspacamento = new Label();
@@ -223,6 +241,8 @@ public class PrimaryController {
 	private BigDecimal caso = new BigDecimal(0.0);
 	
 	private List<Resultado> resultados;
+	
+	private String tipoLaje = new String();
 	
 	@FXML
 	protected void initialize() {
@@ -309,25 +329,85 @@ public class PrimaryController {
 		}
 		
 	}
+	
+	public void trocaVirgulaPorPonto() {
+
+		String text = this.ladoX.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoLadoX.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoLadoX.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+		text = this.ladoY.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoLadoY.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoLadoY.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+		text = this.espessuraLaje.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoVirgulaEspessuraLaje.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoVirgulaEspessuraLaje.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+		text = this.cargaAcidental.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoCargaAcidental.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoCargaAcidental.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+		text = this.espessuraParede.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoEspessuraParede.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoEspessuraParede.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+		text = this.alturaParede.getText();
+
+		if (text.contains(",")) {
+
+			this.avisoAlturaParede.setVisible(true);
+			this.btCalcular.setVisible(false);
+
+		} else {
+			this.avisoAlturaParede.setVisible(false);
+			this.btCalcular.setVisible(true);
+		}
+
+	}
 
 	public void btNovaLaje() {
 
-		this.ladoX.clear();
-		this.ladoY.clear();
-		this.espessuraLaje.clear();
-		this.cargaAcidental.clear();
-		this.espessuraParede.clear();
-		this.alturaParede.clear();
-		this.imprimeResultados.clear();
-		this.acoXPositivo.getItems().clear();
-		this.acoXNegativo.getItems().clear();
-		this.acoYPositivo.getItems().clear();
-		this.acoYNegativo.getItems().clear();
-		this.acoXPositivoComParede.getItems().clear();
-		this.acoXNegativoComParede.getItems().clear();
-		this.acoYPositivoComParede.getItems().clear();
-		this.acoYNegativoComParede.getItems().clear();
-		
 		this.avisoEspessuraLaje.setVisible(false);
 		this.checkYCima.setSelected(false);
 		this.engasteCheckYCima.setVisible(false);
@@ -373,6 +453,22 @@ public class PrimaryController {
 		this.armadurasForaDaZonaDeInflucencia.setVisible(false);
 		this.armadurasNaZonaDeInflucencia.setVisible(false);
 		this.labelEscolhaBitolaEspacamento.setText("Escolha a bitola e os espaçamentos");
+		
+		this.ladoX.clear();
+		this.ladoY.clear();
+		this.espessuraLaje.clear();
+		this.cargaAcidental.clear();
+		this.espessuraParede.clear();
+		this.alturaParede.clear();
+		this.imprimeResultados.clear();
+		this.acoXPositivo.getItems().clear();
+		this.acoXNegativo.getItems().clear();
+		this.acoYPositivo.getItems().clear();
+		this.acoYNegativo.getItems().clear();
+		this.acoXPositivoComParede.getItems().clear();
+		this.acoXNegativoComParede.getItems().clear();
+		this.acoYPositivoComParede.getItems().clear();
+		this.acoYNegativoComParede.getItems().clear();
 
 	}
 	
@@ -554,6 +650,8 @@ public class PrimaryController {
 		
 		resultados = new ArrayList<>();
 		
+		trocaVirgulaPorPonto();
+		
 		lajeComParede = new LajeComParede(this.ladoX, this.ladoY, this.espessuraLaje);
 		
 		lajeSemParede = new LajeSemParede(this.ladoX, this.ladoY, this.espessuraLaje);
@@ -587,10 +685,12 @@ public class PrimaryController {
 			
 			if (paredeSim.selectedProperty().getValue() == true) {
 				
+				this.tipoLaje = "2DCP";
 				calculosLajeComParedeDuasDirecoes();
 
 			} else {
-
+				
+				this.tipoLaje = "2DSP";
 				calculosLajeSemParedeDuasDirecoes();
 
 			}
@@ -601,11 +701,13 @@ public class PrimaryController {
 			if (paredeSim.selectedProperty().getValue() == true) {
 				
 				lajeComParede.setLambda(new BigDecimal(99999.0));
-
+				
+				this.tipoLaje = "1DCP";
 				calculosLajeComParedeUmaDirecao();
 
 			} else {
-
+				
+				this.tipoLaje = "1DSP";
 				lajeSemParede.setLambda(new BigDecimal(99999.0));
 				
 				calculosLajeSemParedeUmaDirecao();
@@ -616,18 +718,30 @@ public class PrimaryController {
 	}
 	
 	public void verificaEspessuraMinimaDaLaje() {
-		
-		BigDecimal espessura = services.conversor(this.espessuraLaje);
-		
-		if(espessura.doubleValue() <= 5.0) {
-			this.btCalcular.setVisible(false);
-			this.avisoEspessuraLaje.setVisible(true);
-		}
-		else {
-			this.btCalcular.setVisible(true);
+
+		if (this.espessuraLaje.getText().equals("")) {
+			
 			this.avisoEspessuraLaje.setVisible(false);
+			
+		} 
+		else {
+			
+			BigDecimal espessura = services.conversor(this.espessuraLaje);
+			
+			if (espessura.doubleValue() <= 5.0) {
+				
+				this.btCalcular.setVisible(false);
+				this.avisoEspessuraLaje.setVisible(true);
+				
+			} 
+			else {
+				
+				this.btCalcular.setVisible(true);
+				this.avisoEspessuraLaje.setVisible(false);
+				
+			}
 		}
-		
+
 	}
 
 	public void calculosLajeSemParedeUmaDirecao() {
@@ -1104,8 +1218,8 @@ public class PrimaryController {
 		materiais.setAlphaI(new BigDecimal(0.8)
 				.add(new BigDecimal(0.2).multiply(materiais.getFckConcreto().divide(new BigDecimal(80)))));
 
-		services.imprimeResultados("Alpha I: " + materiais.getAlphaI().setScale(2, BigDecimal.ROUND_HALF_EVEN) + "\n",
-				this.imprimeResultados, resultados);
+//		services.imprimeResultados("Alpha I: " + materiais.getAlphaI().setScale(2, BigDecimal.ROUND_HALF_EVEN) + "\n",
+//				this.imprimeResultados, resultados);
 	}
 
 	public void calculaEcs() {
@@ -1127,8 +1241,8 @@ public class PrimaryController {
 
 		materiais.setFctm(services.doubleEmBigDecimal(fctm));
 
-		services.imprimeResultados("Fctm: " + materiais.getFctm().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
-				this.imprimeResultados, resultados);
+//		services.imprimeResultados("Fctm: " + materiais.getFctm().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
+//				this.imprimeResultados, resultados);
 
 	}
 
@@ -1136,8 +1250,8 @@ public class PrimaryController {
 
 		materiais.setFctkInf(new BigDecimal(0.7).multiply(materiais.getFctm()));
 
-		services.imprimeResultados("FctkInf: " + materiais.getFctkInf().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
-				this.imprimeResultados, resultados);
+//		services.imprimeResultados("FctkInf: " + materiais.getFctkInf().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
+//				this.imprimeResultados, resultados);
 
 	}
 
@@ -1147,8 +1261,8 @@ public class PrimaryController {
 
 		materiais.setFctd(services.mpaParakNPorCmQuadrado(materiais.getFctd()));
 
-		services.imprimeResultados("Fctd: " + materiais.getFctd().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
-				this.imprimeResultados, resultados);
+//		services.imprimeResultados("Fctd: " + materiais.getFctd().setScale(3, BigDecimal.ROUND_HALF_EVEN) + "\n",
+//				this.imprimeResultados, resultados);
 
 	}
 
@@ -1225,7 +1339,8 @@ public class PrimaryController {
 
 			if (momentoDeServico < momentoDeFissuracao) {
 
-				services.imprimeResultados("OK, Segue o baile!" + "\n", this.imprimeResultados, resultados);
+				services.imprimeResultados("Passou na verificação do momento de fissuração" 
+				+ "\n", this.imprimeResultados, resultados);
 
 			} else {
 
@@ -1369,7 +1484,8 @@ public class PrimaryController {
 
 			if (flechaAdmissivel > flechaDeLongaDuracao) {
 
-				services.imprimeResultados("OK, Segue o baile! \n", this.imprimeResultados, resultados);
+				services.imprimeResultados("Passou na verificação da flecha de longa duração \n", 
+						this.imprimeResultados, resultados);
 
 			} else {
 
@@ -1392,7 +1508,8 @@ public class PrimaryController {
 
 			if (flechaAdmissivel > flechaDeLongaDuracao) {
 
-				services.imprimeResultados("OK, Segue o baile! \n", this.imprimeResultados, resultados);
+				services.imprimeResultados("Passou na verificação da flecha de longa duração \n", 
+						this.imprimeResultados, resultados);
 
 			} else {
 
@@ -2780,15 +2897,12 @@ public class PrimaryController {
 						                                      espacamentoAco.getEspacamento().doubleValue());
 				
 				espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
-				espacamentoAco.setEixo("XComparede");
 						
 				espacamentoX.add(espacamentoAco);
 				
 
 				}
 			}
-		   
-		       
 		
 		       observableList = FXCollections.observableArrayList(espacamentoX);
 		
@@ -2803,12 +2917,26 @@ public class PrimaryController {
 						&& espacamentoAco.getAreaDeAco().doubleValue() <= lajeSemParede.getAreaDeAcoX().doubleValue()
 								+ 0.3) {
 					
-					Double quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoY().doubleValue(),
-                            espacamentoAco.getEspacamento().doubleValue());
+					Double quantidade;
 					
-					espacamentoAco.setEixo("XSemparede");
+					if(this.tipoLaje.equals("1DCP") || this.tipoLaje.equals("2DCP")) {
+						
+						Double lado = this.lajeSemParede.getLadoY().doubleValue() - parede.getAreaDeInfluenciaPositiva().doubleValue();
+						
+						lado = lado/2.0;
+						
+						quantidade = calculaQuantidadeDeBarras(lado, espacamentoAco.getEspacamento().doubleValue());
+						
+					}
+					else {
+						
+						quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoY().doubleValue(),
+	                            espacamentoAco.getEspacamento().doubleValue());
+						
+					}
+					
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
-									
+
 					acoXPositivo.getItems().add(espacamentoAco);
 
 					}
@@ -2821,8 +2949,6 @@ public class PrimaryController {
 
 	public void montaOpcoesDeEspacamentoXNegativo() {
 		
-
-
 		if (paredeSim.selectedProperty().getValue() == true) {
 
 			for (EspacamentoAco espacamentoAco : this.clonarListaEspacamentoAco()) {
@@ -2832,7 +2958,6 @@ public class PrimaryController {
 					Double quantidade = calculaQuantidadeDeBarras(parede.getAreaDeInfluenciaNegativa().doubleValue(),
                             espacamentoAco.getEspacamento().doubleValue());
 					
-					espacamentoAco.setEixo("XNegativoComParede");
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
 					
 					acoXNegativoComParede.getItems().add(espacamentoAco);
@@ -2841,16 +2966,29 @@ public class PrimaryController {
 			}
 		}
 		else {
-			
 
 			for (EspacamentoAco espacamentoAco : this.clonarListaEspacamentoAco()) {
 				if (espacamentoAco.getAreaDeAco().doubleValue() >= lajeSemParede.getAreaDeAcoXLinha().doubleValue()	&&
 						espacamentoAco.getAreaDeAco().doubleValue() <= lajeSemParede.getAreaDeAcoXLinha().doubleValue() + 0.3) {
 					
-					Double quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoY().doubleValue(),
-                            espacamentoAco.getEspacamento().doubleValue());
+					Double quantidade;
 					
-					espacamentoAco.setEixo("XNegativoSemParede");
+					if(this.tipoLaje.equals("1DCP") || this.tipoLaje.equals("2DCP")) {
+						
+						Double lado = this.lajeSemParede.getLadoY().doubleValue() - parede.getAreaDeInfluenciaNegativa().doubleValue();
+						
+						lado = lado/2.0;
+						
+						quantidade = calculaQuantidadeDeBarras(lado, espacamentoAco.getEspacamento().doubleValue());
+						
+					}
+					else {
+						
+						quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoY().doubleValue(),
+	                            espacamentoAco.getEspacamento().doubleValue());
+						
+					}
+					
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
 					
 					acoXNegativo.getItems().add(espacamentoAco);
@@ -2874,8 +3012,7 @@ public class PrimaryController {
 					
 					Double quantidade = calculaQuantidadeDeBarras(lajeComParede.getLadoX().divide(new BigDecimal(100.0)).doubleValue(),
                             	                                  espacamentoAco.getEspacamento().doubleValue());
-					
-					espacamentoAco.setEixo("YComParede");
+
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
 					
 					acoYPositivoComParede.getItems().add(espacamentoAco);
@@ -2891,10 +3028,9 @@ public class PrimaryController {
 				if (espacamentoAco.getAreaDeAco().doubleValue() >= lajeSemParede.getAreaDeAcoY().doubleValue()
 						&& espacamentoAco.getAreaDeAco().doubleValue() <= lajeSemParede.getAreaDeAcoY().doubleValue() + 0.3) {
 
-					Double quantidade = calculaQuantidadeDeBarras(lajeComParede.getLadoX().divide(new BigDecimal(100.0)).doubleValue(),
+					Double quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoX().doubleValue(),
                                                                   espacamentoAco.getEspacamento().doubleValue());
-					
-					espacamentoAco.setEixo("YSemParede");
+
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
 					
 					acoYPositivo.getItems().add(espacamentoAco);
@@ -2908,8 +3044,6 @@ public class PrimaryController {
 	}
 
 	public void montaOpcoesDeEspacamentoYNegativo() {
-		
-
 
 		if (paredeSim.selectedProperty().getValue() == true) {
 			
@@ -2918,17 +3052,12 @@ public class PrimaryController {
 
 			for (EspacamentoAco espacamentoAco : espacamentoAcoListTemp) {
 				
-		
-				
 				if (espacamentoAco.getAreaDeAco().doubleValue() >= lajeComParede.getAreaDeAcoYLinha().doubleValue() &&
 						espacamentoAco.getAreaDeAco().doubleValue() <= lajeComParede.getAreaDeAcoYLinha().doubleValue() + 0.3) {
-					
-					
                    
 					Double quantidade = calculaQuantidadeDeBarras(lajeComParede.getLadoX().divide(new BigDecimal(100.0)).doubleValue(),
                             espacamentoAco.getEspacamento().doubleValue());
 
-					espacamentoAco.setEixo("YNegativoComParede");
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
 
 					acoYNegativoComParede.getItems().add(espacamentoAco);
@@ -2945,8 +3074,7 @@ public class PrimaryController {
 			
 		    ArrayList<EspacamentoAco> espacamentoAcoListTemp = new ArrayList<>();
 		    espacamentoAcoListTemp.addAll(espacamentoAcoList);
-			
-			
+
 			for (EspacamentoAco espacamentoAco : espacamentoAcoListTemp) {
 				
 				if (espacamentoAco.getAreaDeAco().doubleValue() >= lajeSemParede.getAreaDeAcoYLinha().doubleValue() &&
@@ -2955,9 +3083,7 @@ public class PrimaryController {
 					Double quantidade = calculaQuantidadeDeBarras(lajeSemParede.getLadoX().doubleValue(),
                             espacamentoAco.getEspacamento().doubleValue());
 					
-					espacamentoAco.setEixo("YNegativoSemParede");
 					espacamentoAco.setQuantidade(services.doubleEmBigDecimal(quantidade));
-					
 					
 					acoYNegativo.getItems().add(espacamentoAco);
 

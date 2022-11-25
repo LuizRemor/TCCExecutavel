@@ -23,22 +23,22 @@
 		<Label layoutX="830.0" layoutY="105.0" text="Carga Acidental" />
 		<Label fx:id="textEspessuraDaParede" layoutX="785.0" layoutY="181.0" text="Espessura da Parede (cm)" />
 		<Label fx:id="textAlturaDaParede" layoutX="810.0" layoutY="209.0" text="Altura da parede (m)" />
-		<TextField id="inputLadoX" fx:id="ladoX" layoutX="937.0" layoutY="20.0" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputLadoX" fx:id="ladoX" layoutX="937.0" layoutY="20.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputLadoY" fx:id="ladoY" layoutX="937.0" layoutY="49.0" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputLadoY" fx:id="ladoY" layoutX="937.0" layoutY="49.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputEspessuraLaje" fx:id="espessuraLaje" layoutX="937.0" layoutY="76.0" onAction="#verificaEspessuraMinimaDaLaje" onKeyTyped="#verificaEspessuraMinimaDaLaje" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputEspessuraLaje" fx:id="espessuraLaje" layoutX="937.0" layoutY="76.0" onAction="#verificaEspessuraMinimaDaLaje" onKeyPressed="#verificaEspessuraMinimaDaLaje" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputCargaAcidental" fx:id="cargaAcidental" layoutX="937.0" layoutY="102.0" prefHeight="0.0" prefWidth="151.0">
+		<TextField id="inputCargaAcidental" fx:id="cargaAcidental" layoutX="937.0" layoutY="102.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="0.0" prefWidth="151.0">
 			<font>
 				<Font size="10.0" />
 			</font>
@@ -55,12 +55,12 @@
 			</toggleGroup>
 		</RadioButton>
 		<RadioButton fx:id="tijoloFuradoNao" layoutX="1023.0" layoutY="150.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="26.0" toggleGroup="$tijolo" />
-		<TextField id="inputEspessuraParede" fx:id="espessuraParede" layoutX="938.0" layoutY="179.0" prefHeight="10.0" prefWidth="82.0">
+		<TextField id="inputEspessuraParede" fx:id="espessuraParede" layoutX="938.0" layoutY="179.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="10.0" prefWidth="82.0">
 			<font>
 				<Font size="10.0" />
 			</font>
 		</TextField>
-		<TextField id="inputAlturaParede" fx:id="alturaParede" layoutX="938.0" layoutY="207.0" prefHeight="1.0" prefWidth="82.0">
+		<TextField id="inputAlturaParede" fx:id="alturaParede" layoutX="938.0" layoutY="207.0" onKeyTyped="#trocaVirgulaPorPonto" prefHeight="1.0" prefWidth="82.0">
 			<font>
 				<Font size="10.0" />
 			</font>
@@ -134,7 +134,7 @@
       <ComboBox fx:id="acoXPositivoComParede" layoutX="815.0" layoutY="445.0" prefHeight="26.0" prefWidth="309.0" visible="false" />
       <ComboBox fx:id="acoXNegativoComParede" layoutX="815.0" layoutY="496.0" prefHeight="26.0" prefWidth="309.0" visible="false" />
       <ComboBox fx:id="acoYPositivoComParede" layoutX="815.0" layoutY="552.0" prefHeight="26.0" prefWidth="309.0" visible="false" />
-      <ComboBox fx:id="acoYNegativoComParede" layoutX="815.0" layoutY="608.0" onAction="#capturaSelecaoComboBox" prefHeight="26.0" prefWidth="309.0" visible="false" />
+      <ComboBox fx:id="acoYNegativoComParede" layoutX="815.0" layoutY="608.0" prefHeight="26.0" prefWidth="309.0" visible="false" />
       <Label fx:id="labelEscolhaBitolaEspacamento" layoutX="424.0" layoutY="353.0" text="Escolha a bitola e os espaçamentos">
          <font>
             <Font size="18.0" />
@@ -161,6 +161,12 @@
          </font>
       </Label>
       <Rectangle fx:id="retanguloParedeLaje" arcHeight="5.0" arcWidth="5.0" fill="#ff000087" height="153.0" layoutX="288.0" layoutY="71.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="35.0" />
+      <Label fx:id="avisoLadoX" layoutX="1099.0" layoutY="22.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
+      <Label fx:id="avisoLadoY" layoutX="1099.0" layoutY="51.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
+      <Label fx:id="avisoVirgulaEspessuraLaje" layoutX="1099.0" layoutY="78.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
+      <Label fx:id="avisoCargaAcidental" layoutX="1099.0" layoutY="104.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
+      <Label fx:id="avisoEspessuraParede" layoutX="1028.0" layoutY="181.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
+      <Label fx:id="avisoAlturaParede" layoutX="1028.0" layoutY="209.0" text="Trocar a vírgula por ponto" textFill="RED" visible="false" />
 	</children>
 
 </AnchorPane>
