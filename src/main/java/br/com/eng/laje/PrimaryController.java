@@ -484,6 +484,7 @@ public class PrimaryController {
 		this.tijoloFuradoN.setVisible(true);
 		this.textEspessuraDaParede.setVisible(true);
 		this.textAlturaDaParede.setVisible(true);
+		this.btCalcular.setVisible(true);
 
 		this.retanguloComParede.setVisible(false);
 		this.retanguloParedeLaje.setVisible(false);
@@ -515,6 +516,7 @@ public class PrimaryController {
 		this.acoXNegativoComParede.getItems().clear();
 		this.acoYPositivoComParede.getItems().clear();
 		this.acoYNegativoComParede.getItems().clear();
+		
 		
 		verificarVirgulas();
 
